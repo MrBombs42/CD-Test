@@ -14,7 +14,7 @@ public class WebRequest{
                 errorCallback(errorMsg);
                 yield break;
             }
-            // Skip thr first 3 bytes (i.e. the UTF8 BOM)
+            // Skip the first 3 bytes (i.e. the UTF8 BOM)
             var result = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data, 3, request.downloadHandler.data.Length -3);  
             sucessCallback(result);
         }        

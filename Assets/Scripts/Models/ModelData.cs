@@ -7,9 +7,9 @@ namespace CD_Test.Assets.Scripts.Models
     public class ModelData
     {
         public string name;
-        public double[] position;
-        public double[] rotation;
-        public double[] scale;     
+        public float[] position;
+        public float[] rotation;
+        public float[] scale;     
 
     }
 }

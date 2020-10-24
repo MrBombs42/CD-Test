@@ -2,12 +2,13 @@ using System;
 
 namespace CD_Test.Assets.Scripts
 {
+    using CD_Test.Assets.Scripts.Loadables;
     using CD_Test.Assets.Scripts.Models;
     using UnityEngine;
-    using UnityEngine.Networking;
 
     public class Starter : MonoBehaviour {
         
+        [SerializeField] private SceneFactory _sceneFactory;
         void Start()
         {
             WebRequest request = new WebRequest();
@@ -20,10 +21,8 @@ namespace CD_Test.Assets.Scripts
 
         private void OnRequestSucess(string webRequest){
             
-            UnityEngine.Debug.Log(webRequest);
             var data = JsonUtility.FromJson<ModelListData>(webRequest);
-            UnityEngine.Debug.Log(data.models.Length);
-
+            _sceneFactory.Build(data);
         }
 
         private void OnRequestError(string webRequest){
