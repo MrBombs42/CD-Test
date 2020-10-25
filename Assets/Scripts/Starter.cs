@@ -41,6 +41,7 @@ namespace CD_Test.Assets.Scripts
             
             var data = JsonUtility.FromJson<ModelListData>(webRequest);
             _sceneFactory.Build(data);
+            _uiManager.ShowThumbnails(data);
         }
 
         private void OnRequestError(string webRequest){
