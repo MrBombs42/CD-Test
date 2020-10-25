@@ -10,7 +10,8 @@ namespace CD_Test.Assets.Scripts.Selectable
         [SerializeField] private Camera _camera;
         [SerializeField] private SelectableView _view;
         [SerializeField] private float _scaleSpeed = 10;
-          [SerializeField] private float _translationSpeed = 10;
+        [SerializeField] private float _translationSpeed = 10;
+         [SerializeField] private float _rotationSpeed = 100;
 
         private Transform _selectedTransform;
 
@@ -41,11 +42,18 @@ namespace CD_Test.Assets.Scripts.Selectable
         }
 
         private void UpdateRotation(){
-            if(!Input.GetMouseButton(1)){
-                return;
-            }
 
+            var y = Input.GetAxisRaw("RotateY");
+            var x = Input.GetAxisRaw("RotateX");
+            var z = Input.GetAxisRaw("RotateZ");
 
+            var angleY = y * _rotationSpeed * Time.deltaTime;
+            var angleX = x * _rotationSpeed * Time.deltaTime;
+            var angleZ = z * _rotationSpeed * Time.deltaTime;
+
+            _selectedTransform.Rotate(_selectedTransform.up, angleY);
+            _selectedTransform.Rotate(_selectedTransform.right, angleX);
+            _selectedTransform.Rotate(_selectedTransform.forward, angleZ);
         }
 
         private void UpdatePosition(){

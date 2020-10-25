@@ -641,6 +641,7 @@ MonoBehaviour:
   _view: {fileID: 0}
   _scaleSpeed: 10
   _translationSpeed: 10
+  _rotationSpeed: 100
 --- !u!1001 &3159284914740246269
 PrefabInstance:
   m_ObjectHideFlags: 0
