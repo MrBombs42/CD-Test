@@ -8,8 +8,10 @@ namespace CD_Test.Assets.Scripts.Loadables
     
     public class SceneFactory : MonoBehaviour {
         
-
+        public event Action OnBuildCompleted;
         private ResourcesLoader _resourceLoader;
+        private int _loadingRequestCount;
+        private int _currentLoadedCount;
 
         private void Start() {
             _resourceLoader = new ResourcesLoader();
@@ -17,6 +19,8 @@ namespace CD_Test.Assets.Scripts.Loadables
 
         public void Build(ModelListData modelsData)
         {
+            _currentLoadedCount = 0;
+            _loadingRequestCount = modelsData.models.Length;
             for(int i=0; i < modelsData.models.Length; i++){
                 var model = modelsData.models[i];
                 StartCoroutine(WaitForLoadingAndInstantiate(_resourceLoader.LoadAsset(model.name), model));
@@ -37,6 +41,21 @@ namespace CD_Test.Assets.Scripts.Loadables
             var obj = Instantiate(asset, position, rotation) as GameObject;     
 
             obj.transform.localScale = scale; 
+            IncrementeCounterOnLoadingComplete();
+        }
+
+        private void IncrementeCounterOnLoadingComplete(){
+            _currentLoadedCount++;
+
+            if(_currentLoadedCount == _loadingRequestCount){
+                SendBuildComplete();
+            }
+        }
+
+        private void SendBuildComplete(){
+            if(OnBuildCompleted != null){
+                OnBuildCompleted();
+            }
         }
     }
 }
