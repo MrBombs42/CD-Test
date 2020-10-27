@@ -39,7 +39,11 @@ namespace CD_Test.Assets.Scripts.Loadables
             var scale = new Vector3(data.scale[0],data.scale[1], data.scale[2]);
             
             var obj = Instantiate(asset, position, rotation) as GameObject;     
-
+            var mesh = obj.GetComponent<MeshRenderer>();
+            var originalMaterial = mesh.material;
+            var clonedMaterial = Instantiate(originalMaterial);
+            mesh.material = clonedMaterial;
+            
             obj.transform.localScale = scale; 
             obj.name = data.name;
             if(!obj.TryGetComponent<BoxCollider>(out BoxCollider box)){
