@@ -13,6 +13,8 @@ namespace CD_Test.Assets.Scripts.Selectable
         [SerializeField] private float _translationSpeed = 10;
          [SerializeField] private float _rotationSpeed = 100;
 
+
+        private Quaternion _currentRotation;
         private Transform _selectedTransform;
 
         void Update()
@@ -40,9 +42,10 @@ namespace CD_Test.Assets.Scripts.Selectable
             var scale = new Vector3(speed, speed, speed);
             _selectedTransform.localScale += scale;              
         }
-
+    
         private void UpdateRotation(){
 
+            _currentRotation = _selectedTransform.rotation;
             var y = Input.GetAxisRaw("RotateY");
             var x = Input.GetAxisRaw("RotateX");
             var z = Input.GetAxisRaw("RotateZ");
@@ -51,9 +54,9 @@ namespace CD_Test.Assets.Scripts.Selectable
             var angleX = x * _rotationSpeed * Time.deltaTime;
             var angleZ = z * _rotationSpeed * Time.deltaTime;
 
-            _selectedTransform.Rotate(_selectedTransform.up, angleY);
-            _selectedTransform.Rotate(_selectedTransform.right, angleX);
-            _selectedTransform.Rotate(_selectedTransform.forward, angleZ);
+            _selectedTransform.rotation *= Quaternion.AngleAxis(angleY, Vector3.up);
+            _selectedTransform.rotation *= Quaternion.AngleAxis(angleX, Vector3.right);
+            _selectedTransform.rotation *= Quaternion.AngleAxis(angleZ, Vector3.forward);
         }
 
         private void UpdatePosition(){
