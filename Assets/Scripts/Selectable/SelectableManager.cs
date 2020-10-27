@@ -16,33 +16,8 @@ namespace CD_Test.Assets.Scripts.Selectable
         private Quaternion _currentRotation;
         private Transform _selectedTransform;
 
-        private MaterialPropertyBlock _propertyBlock;
-        private Renderer _selectedRenderer;
-
         private void Start() {
             _view.DuplicateButton.onClick.AddListener(OnDuplicateButtonClick);
-            _view.ColorOneButton.onClick.AddListener(SetSelectObjectToColorOne);
-            _view.ColorTwoButton.onClick.AddListener(SetSelectObjectToColorTwo);
-            _view.ColorThreeButton.onClick.AddListener(SetSelectObjectToColorThree);
-        }
-
-        private void SetSelectObjectToColorOne()
-        {           
-            SetSelectObjectToColor( _view.ColorOneButton.image.color);
-        }
-         private void SetSelectObjectToColorTwo()
-        {
-            SetSelectObjectToColor( _view.ColorTwoButton.image.color);
-        }
-        private void SetSelectObjectToColorThree()
-        {
-            SetSelectObjectToColor( _view.ColorThreeButton.image.color);
-        }
-
-         private void SetSelectObjectToColor(Color color)
-        {
-            _propertyBlock.SetColor("_Color", color);
-            _selectedRenderer.SetPropertyBlock(_propertyBlock);
         }
 
         private void OnDuplicateButtonClick()
@@ -62,8 +37,6 @@ namespace CD_Test.Assets.Scripts.Selectable
                 RaycastHit hit;
                if(Physics.Raycast(ray, out hit)){
                     _selectedTransform = hit.transform;
-                    _selectedRenderer = _selectedTransform.GetComponent<MeshRenderer>();
-                    _propertyBlock = new MaterialPropertyBlock();
                     Debug.Log(_selectedTransform.name);
                     _view.SetSelectionName(_selectedTransform.name);
                }

@@ -25,10 +25,9 @@ Shader "Custom/VertexColorsStandard" {
 
 		half _Glossiness;
 		half _Metallic;
-		fixed4 _Color;
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
-			o.Albedo = IN.color.rgb * _Color;
+			o.Albedo = IN.color.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
