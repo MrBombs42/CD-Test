@@ -41,6 +41,7 @@ namespace CD_Test.Assets.Scripts.Loadables
             var obj = Instantiate(asset, position, rotation) as GameObject;     
 
             obj.transform.localScale = scale; 
+            obj.name = data.name;
             if(!obj.TryGetComponent<BoxCollider>(out BoxCollider box)){
                 obj.AddComponent<BoxCollider>();
             }

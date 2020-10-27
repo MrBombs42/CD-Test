@@ -11,11 +11,24 @@ namespace CD_Test.Assets.Scripts.Selectable
         [SerializeField] private SelectableView _view;
         [SerializeField] private float _scaleSpeed = 10;
         [SerializeField] private float _translationSpeed = 10;
-         [SerializeField] private float _rotationSpeed = 100;
-
+        [SerializeField] private float _rotationSpeed = 100;
 
         private Quaternion _currentRotation;
         private Transform _selectedTransform;
+
+        private void Start() {
+            _view.DuplicateButton.onClick.AddListener(OnDuplicateButtonClick);
+        }
+
+        private void OnDuplicateButtonClick()
+        {
+            if(_selectedTransform == null){
+                Debug.LogError("Select something");
+                return;
+            }
+            var position = _selectedTransform.transform.position + _selectedTransform.up *  3;
+            var newObject = Instantiate(_selectedTransform.gameObject, position, _selectedTransform.rotation);
+        }
 
         void Update()
         {
@@ -25,6 +38,7 @@ namespace CD_Test.Assets.Scripts.Selectable
                if(Physics.Raycast(ray, out hit)){
                     _selectedTransform = hit.transform;
                     Debug.Log(_selectedTransform.name);
+                    _view.SetSelectionName(_selectedTransform.name);
                }
             }
 
