@@ -21,5 +21,9 @@ namespace CD_Test.Assets.Scripts.UI
         public void ShowThumbnails(ModelListData modelsData){
             _thumbnailsListView.LoadAndShow(modelsData);
         }
+
+        public void Clear(){
+            _thumbnailsListView.Clear();
+        }
     }
 }

@@ -22,5 +22,9 @@ namespace CD_Test.Assets.Scripts
 
            _cache[id] = gameObject;
         }
+
+        public static void Clear(){
+            _cache.Clear();
+        }
     }
 }

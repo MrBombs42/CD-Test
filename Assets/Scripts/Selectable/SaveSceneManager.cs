@@ -9,7 +9,7 @@ namespace CD_Test.Assets.Scripts.Selectable
 
     public class SaveSceneManager : MonoBehaviour {
         [SerializeField] private Button _saveButton;
-        [SerializeField] private string _fileName = "SceneSavedData.json";
+        private string _fileName = "SceneSavedData.json";
         private static string Path;
 
         private void Start() {
@@ -34,6 +34,11 @@ namespace CD_Test.Assets.Scripts.Selectable
              var data = JsonUtility.ToJson(modelsData);
 
              File.WriteAllText(Path, data);
+        }
+
+        public string Load()
+        {
+            return File.ReadAllText(Path);
         }
 
         private ModelData GetModelData(GameObject obj){

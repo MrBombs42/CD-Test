@@ -38,6 +38,16 @@ namespace CD_Test.Assets.Scripts.UI
             thumb.SetTexture(texture);
             thumb.transform.SetParent(_gridTransform);
             thumb.gameObject.SetActive(true);
+            _thumbsList.Add(thumb);
+        }
+
+        public void Clear(){
+            foreach (var item in _thumbsList)
+            {
+                Destroy(item.gameObject);
+            }
+
+            _thumbsList.Clear();
         }
 
     }

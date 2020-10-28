@@ -1705,6 +1705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneFactory: {fileID: 1302986514}
   _uiManager: {fileID: 178257144}
+  _saveSceneManager: {fileID: 1302986518}
 --- !u!4 &1302986516
 Transform:
   m_ObjectHideFlags: 0
