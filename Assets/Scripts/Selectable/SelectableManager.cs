@@ -12,18 +12,23 @@ namespace CD_Test.Assets.Scripts.Selectable
         [SerializeField] private float _scaleSpeed = 10;
         [SerializeField] private float _translationSpeed = 10;
         [SerializeField] private float _rotationSpeed = 100;
-
-        private Quaternion _currentRotation;
         private Transform _selectedTransform;
+
+        private int _colorId = Shader.PropertyToID("_Color");
+        private int _textureId = Shader.PropertyToID("_MainTex");
 
         private MaterialPropertyBlock _propertyBlock;
         private Renderer _selectedRenderer;
 
         private void Start() {
+            _propertyBlock = new MaterialPropertyBlock();
             _view.DuplicateButton.onClick.AddListener(OnDuplicateButtonClick);
             _view.ColorOneButton.onClick.AddListener(SetSelectObjectToColorOne);
             _view.ColorTwoButton.onClick.AddListener(SetSelectObjectToColorTwo);
             _view.ColorThreeButton.onClick.AddListener(SetSelectObjectToColorThree);
+            _view.TextureOneButton.onClick.AddListener(SetTextureButtonOne);
+            _view.TextureTwoButton.onClick.AddListener(SetTextureButtonTwo);
+            _view.TextureThreeButton.onClick.AddListener(SetTextureButtonThree);
         }
 
         private void SetSelectObjectToColorOne()
@@ -39,9 +44,32 @@ namespace CD_Test.Assets.Scripts.Selectable
             SetSelectObjectToColor( _view.ColorThreeButton.image.color);
         }
 
-         private void SetSelectObjectToColor(Color color)
+        private void SetSelectObjectToColor(Color color)
         {
-            _propertyBlock.SetColor("_Color", color);
+            _propertyBlock.SetColor(_colorId, color);
+           SetPropertyBlock();
+        }
+
+        private void SetTextureButtonOne(){
+            SetTexture(_view.TextureOneButton.image.mainTexture);
+        }
+
+         private void SetTextureButtonTwo(){
+            SetTexture(_view.TextureTwoButton.image.mainTexture);
+         }
+        
+
+         private void SetTextureButtonThree(){
+            SetTexture(_view.TextureThreeButton.image.mainTexture);
+         }
+        
+
+        private void SetTexture(Texture texture){
+            _propertyBlock.SetTexture(_textureId, texture);
+            SetPropertyBlock();
+        }
+
+        private void SetPropertyBlock(){
             _selectedRenderer.SetPropertyBlock(_propertyBlock);
         }
 
@@ -63,7 +91,7 @@ namespace CD_Test.Assets.Scripts.Selectable
                if(Physics.Raycast(ray, out hit)){
                     _selectedTransform = hit.transform;
                     _selectedRenderer = _selectedTransform.GetComponent<MeshRenderer>();
-                    _propertyBlock = new MaterialPropertyBlock();
+                    _selectedRenderer.GetPropertyBlock(_propertyBlock);
                     Debug.Log(_selectedTransform.name);
                     _view.SetSelectionName(_selectedTransform.name);
                }
@@ -86,7 +114,6 @@ namespace CD_Test.Assets.Scripts.Selectable
     
         private void UpdateRotation(){
 
-            _currentRotation = _selectedTransform.rotation;
             var y = Input.GetAxisRaw("RotateY");
             var x = Input.GetAxisRaw("RotateX");
             var z = Input.GetAxisRaw("RotateZ");

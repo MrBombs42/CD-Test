@@ -13,6 +13,9 @@ namespace CD_Test.Assets.Scripts.UI
       [SerializeField] private Button _colorTwoButton;
       [SerializeField] private Button _colorThreeButton;
 
+      [SerializeField] private Button _textureOneButton;
+      [SerializeField] private Button _textureTwoButton;
+      [SerializeField] private Button _textureThreeButton;
 
       public void SetSelectionName(string selectionName){
          _selectedObjectText.text = selectionName;
@@ -23,5 +26,10 @@ namespace CD_Test.Assets.Scripts.UI
       public Button ColorOneButton{get{return _colorOneButton;}}
       public Button ColorTwoButton { get{return _colorTwoButton;} }
       public Button ColorThreeButton { get{return _colorThreeButton;} }
+
+      public Button TextureOneButton { get{return _textureOneButton;} }
+      public Button TextureTwoButton { get{return _textureTwoButton;} }
+      public Button TextureThreeButton { get{return _textureThreeButton;} }
+
     }
 }

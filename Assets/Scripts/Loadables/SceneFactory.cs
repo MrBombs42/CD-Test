@@ -40,9 +40,12 @@ namespace CD_Test.Assets.Scripts.Loadables
             
             var obj = Instantiate(asset, position, rotation) as GameObject;     
             var mesh = obj.GetComponent<MeshRenderer>();
-            var originalMaterial = mesh.material;
-            var clonedMaterial = Instantiate(originalMaterial);
-            mesh.material = clonedMaterial;
+
+            for(int i =0; i < mesh.materials.Length; i++){
+                var mat = mesh.materials[i];
+
+                mesh.materials[i] = Instantiate(mat);                 
+            }
             
             obj.transform.localScale = scale; 
             obj.name = data.name;
