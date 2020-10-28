@@ -53,6 +53,8 @@ namespace CD_Test.Assets.Scripts.Loadables
                 obj.AddComponent<BoxCollider>();
             }
             IncrementeCounterOnLoadingComplete();
+
+            AssetSceneCache.Add(obj);
         }
 
         private void IncrementeCounterOnLoadingComplete(){

@@ -81,6 +81,7 @@ namespace CD_Test.Assets.Scripts.Selectable
             }
             var position = _selectedTransform.transform.position + _selectedTransform.up *  3;
             var newObject = Instantiate(_selectedTransform.gameObject, position, _selectedTransform.rotation);
+            AssetSceneCache.Add(newObject);
         }
 
         void Update()
