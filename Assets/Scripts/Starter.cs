@@ -31,12 +31,12 @@ namespace CD_Test.Assets.Scripts
             _uiManager.HideLoading();
         }
 
-        void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.C)){
-                Load();
-            }
-        }
+        // void Update()
+        // {
+        //     if(Input.GetKeyDown(KeyCode.C)){
+        //         Load();
+        //     }
+        // }
 
         private void Load(){
 
