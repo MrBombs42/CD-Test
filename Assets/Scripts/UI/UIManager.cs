@@ -1,10 +1,8 @@
-using System;
-
 namespace CD_Test.Assets.Scripts.UI
 {
     using CD_Test.Assets.Scripts.Models;
     using UnityEngine;
-    
+
     public class UIManager : MonoBehaviour {
         
         [SerializeField] private GameObject _loadingGroup;

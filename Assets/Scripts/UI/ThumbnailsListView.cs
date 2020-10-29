@@ -1,12 +1,10 @@
-using System;
-
 namespace CD_Test.Assets.Scripts.UI
 {
     using System.Collections.Generic;
     using CD_Test.Assets.Scripts.Loadables;
     using CD_Test.Assets.Scripts.Models;
     using UnityEngine;
-    
+
     public class ThumbnailsListView : MonoBehaviour {
         
         [SerializeField] private ThumbnailView _thumbnailViewPrefab;

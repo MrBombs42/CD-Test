@@ -1,5 +1,3 @@
-using System;
-
 namespace CD_Test.Assets.Scripts
 {
     using CD_Test.Assets.Scripts.Loadables;

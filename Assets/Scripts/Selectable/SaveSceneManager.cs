@@ -1,7 +1,6 @@
-using System;
-
 namespace CD_Test.Assets.Scripts.Selectable
 {
+    using System.Collections;
     using System.IO;
     using CD_Test.Assets.Scripts.Models;
     using UnityEngine;
@@ -9,17 +8,22 @@ namespace CD_Test.Assets.Scripts.Selectable
 
     public class SaveSceneManager : MonoBehaviour {
         [SerializeField] private Button _saveButton;
+        [SerializeField] private Text _saveText;
         private string _fileName = "SceneSavedData.json";
-        private static string Path;
+        private static string _path;
 
         private void Start() {
+
+            ActivaSavingText(false);
             _saveButton.onClick.AddListener(SaveScene);
-            Path = string.Format("{0}/{1}", Application.persistentDataPath, _fileName);
+
+            string newPath = Path.GetFullPath(Path.Combine(Application.dataPath, @"..\"));
+            _path = string.Format("{0}/{1}", newPath, _fileName);
         }
 
         private void SaveScene()
         {
-            Debug.Log(Application.persistentDataPath);
+            StartCoroutine(ShowSavingFeedback());
             var cache = AssetSceneCache.CachedObjectsList;
            
             ModelListData modelsData = new ModelListData();
@@ -33,13 +37,25 @@ namespace CD_Test.Assets.Scripts.Selectable
 
              var data = JsonUtility.ToJson(modelsData);
 
-             File.WriteAllText(Path, data);
+             File.WriteAllText(_path, data);
+        }
+
+        private IEnumerator ShowSavingFeedback()
+        {
+            ActivaSavingText(true);
+            yield return new WaitForSeconds(2);
+            ActivaSavingText(false);
+        }
+
+        private void ActivaSavingText(bool active){
+             _saveText.gameObject.SetActive(active);
         }
 
         public string Load()
         {
-            return File.ReadAllText(Path);
+            return File.ReadAllText(_path);
         }
+        
 
         private ModelData GetModelData(GameObject obj){
             

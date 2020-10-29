@@ -1,10 +1,8 @@
-using System;
-
 namespace CD_Test.Assets.Scripts.Selectable
 {
     using CD_Test.Assets.Scripts.UI;
     using UnityEngine;
-    
+
     public class SelectableManager : MonoBehaviour {
 
         [SerializeField] private Camera _camera;
@@ -70,6 +68,9 @@ namespace CD_Test.Assets.Scripts.Selectable
         }
 
         private void SetPropertyBlock(){
+            if(_selectedRenderer == null){
+                return;
+            }
             _selectedRenderer.SetPropertyBlock(_propertyBlock);
         }
 
@@ -107,12 +108,23 @@ namespace CD_Test.Assets.Scripts.Selectable
 
         private void UpdateScale(){      
 
-            var scrollDelta = Input.mouseScrollDelta;            
-            var speed = _scaleSpeed * scrollDelta.y * Time.deltaTime;
+            var scrollDelta = GetScrollDelta();                       
+            var speed = _scaleSpeed * scrollDelta * Time.deltaTime;
             var scale = new Vector3(speed, speed, speed);
             _selectedTransform.localScale += scale;              
         }
-    
+
+        private float GetScrollDelta(){
+            if(Input.GetKeyDown(KeyCode.Equals) || Input.GetKeyDown(KeyCode.KeypadPlus)){
+                return 1;
+            }
+
+            if(Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus)){
+                return -1;
+            }
+
+            return Input.mouseScrollDelta.y;
+        }
         private void UpdateRotation(){
 
             var y = Input.GetAxisRaw("RotateY");
